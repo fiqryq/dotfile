@@ -1,0 +1,19 @@
+# Font 
+font-family = "JetBrains Mono Regular"
+font-size = 15
+
+# Padding Balance Settings
+window-padding-x = 0
+window-padding-y = 0
+window-padding-color = background 
+window-padding-color = extend
+window-padding-balance = true
+
+# Background
+# theme = "Github-Dark-Default"
+# background-opacity = 0.96
+# background-blur-radius = 40
+alpha-blending = linear-corrected
+
+mouse-hide-while-typing = true
+
