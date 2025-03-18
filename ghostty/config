@@ -1,3 +1,5 @@
+# Theme
+theme = "Github-Dark-Default"
 # Font 
 font-family = "JetBrains Mono Regular"
 font-size = 15
@@ -14,6 +16,5 @@ window-padding-balance = true
 # background-opacity = 0.96
 # background-blur-radius = 40
 alpha-blending = linear-corrected
-
 mouse-hide-while-typing = true
 

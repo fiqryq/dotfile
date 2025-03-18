@@ -21,4 +21,5 @@ return {
   { import = "astrocommunity.color.vim-highlighter" },
   { import = "astrocommunity.debugging.nvim-chainsaw" },
   { import = "astrocommunity.scrolling.neoscroll-nvim" },
+  { import = "astrocommunity.colorscheme.rose-pine" },
 }
