@@ -1,74 +1,87 @@
-vim.api.nvim_set_hl(0, "MyAvanteCurrentGroup", {
-  fg = "#FF0000",
-  bg = "#00FF00",
-  bold = true,
-})
-
+local prefix = "<Leader>A"
 return {
-  {
-    "yetone/avante.nvim",
-    event = "VeryLazy",
-    version = false,
-    opts = {
-      provider = "deepseek",
-      cursor_applying_provider = "deepseek",
-      behaviour = {
-        enable_cursor_planning_mode = true,
+  "yetone/avante.nvim",
+  build = vim.fn.has "win32" == 1 and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
+    or "make",
+  event = "User AstroFile",
+  cmd = {
+    "AvanteAsk",
+    "AvanteBuild",
+    "AvanteEdit",
+    "AvanteRefresh",
+    "AvanteSwitchProvider",
+    "AvanteChat",
+    "AvanteToggle",
+    "AvanteClear",
+  },
+  dependencies = {
+    "stevearc/dressing.nvim",
+    "nvim-lua/plenary.nvim",
+    "MunifTanjim/nui.nvim",
+    { "AstroNvim/astrocore", opts = function(_, opts) opts.mappings.n[prefix] = { desc = " Avante" } end },
+  },
+  opts = {
+    mappings = {
+      ask = prefix .. "<CR>",
+      edit = prefix .. "e",
+      refresh = prefix .. "r",
+      focus = prefix .. "f",
+      toggle = {
+        default = prefix .. "t",
+        debug = prefix .. "d",
+        hint = prefix .. "h",
+        suggestion = prefix .. "s",
+        repomap = prefix .. "R",
       },
-      highlighter = {
-        diff = {
-          current = "MyAvanteCurrentGroup",
-        },
+      diff = {
+        next = "]c",
+        prev = "[c",
       },
-      vendors = {
-        deepseek = {
-          __inherited_from = "openai",
-          api_key_name = "DEEPSEEK_API_KEY",
-          endpoint = "https://api.deepseek.com",
-          model = "deepseek-coder",
-          prompts = {
-            planning = "Analyze the following code and provide a detailed plan for improvement:",
-            editing = "Review and optimize the following code block:",
-            suggesting = "Based on the context, suggest the most appropriate code completion:",
-            cursor_planning = "Analyze the code at the cursor position and suggest improvements:",
+      files = {
+        add_current = prefix .. ".",
+      },
+    },
+  },
+  specs = {
+    { "AstroNvim/astroui", opts = { icons = { Avante = "" } } },
+    {
+      "zbirenbaum/copilot.lua",
+      optional = true,
+      specs = {
+        {
+          "yetone/avante.nvim",
+          opts = {
+            provider = "deepseek",
+            auto_suggestions_provider = "copilot",
+            vendors = {
+              deepseek = {
+                __inherited_from = "openai",
+                api_key_name = "DEEPSEEK_API_KEY",
+                endpoint = "https://api.deepseek.com/v1",
+                model = "deepseek-coder",
+                temperature = 0,
+                max_tokens = 8192,
+              },
+            },
           },
-          disable_tools = true,
         },
       },
     },
-    build = "make",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "stevearc/dressing.nvim",
-      "nvim-lua/plenary.nvim",
-      "MunifTanjim/nui.nvim",
-      "echasnovski/mini.pick",
-      "nvim-telescope/telescope.nvim",
-      "hrsh7th/nvim-cmp",
-      "ibhagwan/fzf-lua",
-      "nvim-tree/nvim-web-devicons",
-      "zbirenbaum/copilot.lua",
-      {
-        "HakonHarnes/img-clip.nvim",
-        event = "VeryLazy",
-        opts = {
-          default = {
-            embed_image_as_base64 = false,
-            prompt_for_file_name = false,
-            drag_and_drop = {
-              insert_mode = true,
-            },
-            use_absolute_path = true,
-          },
-        },
-      },
-      {
-        "MeanderingProgrammer/render-markdown.nvim",
-        opts = {
-          file_types = { "markdown", "Avante" },
-        },
-        ft = { "markdown", "Avante" },
-      },
+    {
+      "MeanderingProgrammer/render-markdown.nvim",
+      optional = true,
+      opts = function(_, opts)
+        if not opts.file_types then opts.file_types = { "markdown" } end
+        opts.file_types = require("astrocore").list_insert_unique(opts.file_types, { "Avante" })
+      end,
+    },
+    {
+      "OXY2DEV/markview.nvim",
+      optional = true,
+      opts = function(_, opts)
+        if not opts.filetypes then opts.filetypes = { "markdown", "quarto", "rmd" } end
+        opts.filetypes = require("astrocore").list_insert_unique(opts.filetypes, { "Avante" })
+      end,
     },
   },
 }

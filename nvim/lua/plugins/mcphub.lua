@@ -8,9 +8,7 @@ return {
     config = function()
       require("mcphub").setup {
         port = 5999,
-        config = vim.fn.expand "~/.config/mcpservers.json",
-        on_ready = function(hub) end,
-        on_error = function(err) end,
+        config = vim.fn.expand "~/mcp/mcpservers.json",
         shutdown_delay = 0,
         log = {
           level = vim.log.levels.WARN,

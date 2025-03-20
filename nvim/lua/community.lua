@@ -22,4 +22,5 @@ return {
   { import = "astrocommunity.debugging.nvim-chainsaw" },
   { import = "astrocommunity.scrolling.neoscroll-nvim" },
   { import = "astrocommunity.colorscheme.rose-pine" },
+  { import = "astrocommunity.colorscheme.github-nvim-theme" },
 }
