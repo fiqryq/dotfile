@@ -3,7 +3,8 @@ return {
   "yetone/avante.nvim",
   build = vim.fn.has "win32" == 1 and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
     or "make",
-  event = "User AstroFile",
+  event = "VeryLazy",
+  version = false,
   cmd = {
     "AvanteAsk",
     "AvanteBuild",
@@ -18,9 +19,18 @@ return {
     "stevearc/dressing.nvim",
     "nvim-lua/plenary.nvim",
     "MunifTanjim/nui.nvim",
+    "mcphub/mcphub.nvim",
     { "AstroNvim/astrocore", opts = function(_, opts) opts.mappings.n[prefix] = { desc = " Avante" } end },
   },
   opts = {
+    provider = "copilot",
+    auto_suggestions_provider = "copilot",
+    copilot = {
+      model = "claude-3.5-sonnet",
+      temperature = 0,
+      max_tokens = 8192,
+      timeout = 3000,
+    },
     mappings = {
       ask = prefix .. "<CR>",
       edit = prefix .. "e",
@@ -41,33 +51,35 @@ return {
         add_current = prefix .. ".",
       },
     },
+    system_prompt = function()
+      local hub = require("mcphub").get_hub_instance()
+      return hub:get_active_servers_prompt()
+    end,
+    custom_tools = function()
+      return {
+        require("mcphub.extensions.avante").mcp_tool(),
+      }
+    end,
   },
   specs = {
     { "AstroNvim/astroui", opts = { icons = { Avante = "" } } },
     {
       "zbirenbaum/copilot.lua",
-      optional = true,
       specs = {
         {
           "yetone/avante.nvim",
           opts = {
-            provider = "deepseek",
+            provider = "copilot",
             auto_suggestions_provider = "copilot",
-            vendors = {
-              deepseek = {
-                __inherited_from = "openai",
-                api_key_name = "DEEPSEEK_API_KEY",
-                endpoint = "https://api.deepseek.com/v1",
-                model = "deepseek-coder",
-                temperature = 0,
-                max_tokens = 8192,
-              },
+            copilot = {
+              model = "claude-3.5-sonnet",
+              temperature = 0,
+              max_tokens = 8192,
+              timeout = 3000,
             },
           },
         },
       },
-    },
-    {
       "MeanderingProgrammer/render-markdown.nvim",
       optional = true,
       opts = function(_, opts)

@@ -26,7 +26,6 @@ return {
             Delimiter = { fg = "#A000F8" }, -- Punctuation
             Constant = { fg = "#FFAF00" }, -- Constants
             Visual = { bg = "#313244" }, -- Visual selection background
-            CursorLine = { bg = "#45475A" }, -- Cursor line background
             ErrorMsg = { fg = "#F32882" }, -- Error messages
           }
         end,
