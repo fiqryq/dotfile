@@ -1,3 +1,4 @@
+
 # Set up the Zsh shell environment
 export ZSH="$HOME/.oh-my-zsh"
 export PATH=$PATH:~/go/bin
@@ -24,9 +25,8 @@ alias enablehud="/bin/launchctl setenv MTL_HUD_ENABLED 1"
 alias disablehud="/bin/launchctl setenv MTL_HUD_ENABLED 0"
 
 if [[ -n $SSH_CONNECTION ]]; then
- 
-# Load local environment variables.
-# Load devault editor.
+  # Load local environment variables.
+  # Load default editor.
 else
   export EDITOR='nvim'
   [[ -f $HOME/.env.local ]] && source $HOME/.env.local
@@ -36,11 +36,11 @@ fi
 eval "$(starship init zsh)"
 
 # Created by `pipx` on 2024-07-12 09:33:29
-export PATH="$PATH:/Users/fiqrychoerudin/.local/bin"
+export PATH="$PATH:$HOME/.local/bin"
 export DOTENV_PASS=${DOTENV_PASS}
 
 # pnpm
-export PNPM_HOME="/Users/fiqrychoerudin/Library/pnpm"
+export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
@@ -48,7 +48,7 @@ esac
 # pnpm end
 
 # Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/fiqrychoerudin/.cache/lm-studio/bin"
+export PATH="$PATH:$HOME/.cache/lm-studio/bin"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -66,10 +66,8 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/fiqrychoerudin/.docker/completions $fpath)
+fpath=($HOME/.docker/completions $fpath)
 autoload -Uz compinit
 compinit
 # End of Docker CLI completions
 
-# Added by Windsurf
-export PATH="/Users/fiqrychoerudin/.codeium/windsurf/bin:$PATH"
