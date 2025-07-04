@@ -1,3 +1,5 @@
+![CleanShot 2025-07-04 at 22 40 44](https://github.com/user-attachments/assets/b5253609-a289-4f9b-a215-a0d9a09d9f87)
+
 # Dotfiles for macOS
 
 This repository contains my personal configuration files for Zsh, Neovim, Ghostty, and more, managed with [GNU Stow](https://www.gnu.org/software/stow/).
