@@ -1,0 +1,32 @@
+#ignore local environment
+.env
+.env.local
+
+# Dotfiles general ignores
+.env
+.zshrc_priv
+.bash_local
+.bash_history
+.zsh_history
+.git-credentials
+
+# Editor/IDE
+*.swp
+*.swo
+*.tmp
+*.bak
+.DS_Store
+.idea/
+.vscode/
+
+# Neovim specific
+nvim/plugged/
+nvim/.cache/
+nvim/swap/
+nvim/undo/
+nvim/view/
+*.luac
+Session.vim
+nvim/.config/nvim/local.lua
+nvim/.config/nvim/lua/local/
+
